@@ -3,10 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['your-image-domain.com'], // добавьте ваши домены изображений
-  },
-  experimental: {
-    appDir: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'credium.store',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   async headers() {
     return [
