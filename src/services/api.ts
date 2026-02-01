@@ -91,8 +91,11 @@ export const api = {
   async login(email: string, password: string): Promise<AuthResponse> {
     return request<AuthResponse>('/auth/login', {
       method: 'POST',
-      body: new URLSearchParams({ username: email, password }), // FastAPI часто ждет так
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: email,
+        password: password,
+      }),
       cache: 'no-store'
     });
   },
@@ -100,7 +103,13 @@ export const api = {
   async register(email: string, password: string): Promise<AuthResponse> {
     return request<AuthResponse>('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password, full_name: email.split('@')[0] }),
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password,
+      }),
       cache: 'no-store'
     });
   },
