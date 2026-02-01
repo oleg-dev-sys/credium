@@ -5,7 +5,7 @@ import api from '@/services/api';
 import { notFound } from 'next/navigation';
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }> | { id: string };
 };
 
 export const dynamic = 'force-dynamic';
@@ -18,7 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage(props: Props) {
+  const params = await props.params;
+
   console.log('=== ProductPage params ===', params);
   
   const id = params?.id;
