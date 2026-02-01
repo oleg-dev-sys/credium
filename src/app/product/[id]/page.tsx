@@ -19,14 +19,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
-  if (!params?.id || params.id === 'undefined') {
-    notFound();
+  console.log('=== ProductPage params ===', params);
+  
+  const id = params?.id;
+  
+  console.log('=== ID ===', id);
+
+  if (!id) {
+    console.error('No ID provided');
+    return <div>Ошибка: не указан ID продукта</div>;
   }
+
   try {
-    const initialData = await api.getProduct(params.id);
+    const initialData = await api.getProduct(id);
+    console.log('=== Product loaded ===', initialData);
     return <ProductDetailsClient id={params.id} initialData={initialData} />;
   } catch (error) {
     console.error('Error loading product:', error);
-    notFound();
+    return <div>Ошибка загрузки продукта</div>;
   }
 }
