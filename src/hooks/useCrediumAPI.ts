@@ -1,3 +1,4 @@
+'use client'
 import { useQuery, useMutation } from '@tanstack/react-query';
 import api from '@/services/api';
 import type { SearchParams } from '@/components/types';
@@ -18,7 +19,7 @@ export function useTop10() {
  */
 export function useSearch() {
   return useMutation({
-    mutationFn: (params: Partial<SearchParams>) => api.search(params),
+    mutationFn: (params: SearchParams) => api.search(params),
   });
 }
 
@@ -38,7 +39,8 @@ export function useProduct(id: string) {
  */
 export function useApprovalCheck() {
   return useMutation({
-    mutationFn: (params: { amount: number; income: number; creditScore: number }) =>
-      api.checkApproval(params),
+    mutationFn: async ({ productId, userId }: { productId: string; userId: string }) => {
+      return api.checkApproval(productId, userId);
+    },
   });
 }

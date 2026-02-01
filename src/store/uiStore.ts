@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { UIState } from '@/types';
+import type { UIState } from '@/components/types';
 
 export const useUIStore = create<UIState>((set) => ({
   isSearching: false,

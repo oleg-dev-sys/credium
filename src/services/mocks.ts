@@ -1,4 +1,4 @@
-import type { Product, SearchResponse, ApprovalCheckResponse } from '@/types';
+import type { Product, SearchResponse, ApprovalCheckResponse } from '@/components/types';
 
 /** Mock product data */
 export const mockProducts: Product[] = [
@@ -9,10 +9,10 @@ export const mockProducts: Product[] = [
     apr: 14.5,
     monthly: 1250,
     badge: 'Top10',
-    aiScore: 78,
+    ai_score: 78,
     bank: 'Alpha Bank',
     features: ['5% кэшбэк на рестораны', 'Бесплатное обслуживание', 'Apple Pay / Google Pay'],
-    maxAmount: 500000,
+    max_amount: 500000,
     term: 'Бессрочно',
   },
   {
@@ -22,10 +22,10 @@ export const mockProducts: Product[] = [
     apr: 19.9,
     monthly: 990,
     badge: 'Популярное',
-    aiScore: 85,
+    ai_score: 85,
     bank: 'Tinkoff',
     features: ['Мили за покупки', 'Бесплатные залы ожидания', 'Страховка путешественника'],
-    maxAmount: 1000000,
+    max_amount: 1000000,
     term: 'Бессрочно',
   },
   {
@@ -34,11 +34,11 @@ export const mockProducts: Product[] = [
     type: 'loan',
     apr: 11.9,
     monthly: 8200,
-    aiScore: 64,
+    ai_score: 64,
     bank: 'Sberbank',
     features: ['Без залога', 'Быстрое решение', 'Досрочное погашение без штрафов'],
-    maxAmount: 3000000,
-    minAmount: 100000,
+    max_amount: 3000000,
+    min_amount: 100000,
     term: '12-60 месяцев',
   },
   {
@@ -48,11 +48,11 @@ export const mockProducts: Product[] = [
     apr: 15.5,
     monthly: 12500,
     badge: 'Быстрое одобрение',
-    aiScore: 72,
+    ai_score: 72,
     bank: 'VTB',
     features: ['Решение за 5 минут', 'Минимум документов', 'Онлайн оформление'],
-    maxAmount: 1000000,
-    minAmount: 50000,
+    max_amount: 1000000,
+    min_amount: 50000,
     term: '6-36 месяцев',
   },
   {
@@ -62,11 +62,11 @@ export const mockProducts: Product[] = [
     apr: 0.8,
     monthly: 2100,
     badge: 'Первый займ 0%',
-    aiScore: 55,
+    ai_score: 55,
     bank: 'MoneyMan',
     features: ['Первый займ без процентов', 'Деньги за 15 минут', 'На карту любого банка'],
-    maxAmount: 30000,
-    minAmount: 1000,
+    max_amount: 30000,
+    min_amount: 1000,
     term: '5-30 дней',
   },
   {
@@ -75,11 +75,11 @@ export const mockProducts: Product[] = [
     type: 'microloan',
     apr: 1.0,
     monthly: 1800,
-    aiScore: 48,
+    ai_score: 48,
     bank: 'Займер',
     features: ['Без проверки КИ', '24/7 одобрение', 'Продление срока'],
-    maxAmount: 50000,
-    minAmount: 3000,
+    max_amount: 50000,
+    min_amount: 3000,
     term: '7-30 дней',
   },
   {
@@ -89,10 +89,10 @@ export const mockProducts: Product[] = [
     apr: 0,
     monthly: 0,
     badge: 'Без комиссий',
-    aiScore: 92,
+    ai_score: 92,
     bank: 'Raiffeisen',
     features: ['Кэшбэк до 5%', 'Бесплатные переводы', 'Проценты на остаток'],
-    maxAmount: 0,
+    max_amount: 0,
     term: 'Бессрочно',
   },
   {
@@ -102,11 +102,11 @@ export const mockProducts: Product[] = [
     apr: 9.9,
     monthly: 15600,
     badge: 'Лучшая ставка',
-    aiScore: 81,
+    ai_score: 81,
     bank: 'Газпромбанк',
     features: ['Объединение кредитов', 'Снижение платежа', 'Кредитные каникулы'],
-    maxAmount: 5000000,
-    minAmount: 300000,
+    max_amount: 5000000,
+    min_amount: 300000,
     term: '24-84 месяца',
   },
 ];
@@ -114,7 +114,7 @@ export const mockProducts: Product[] = [
 /** Get top 10 products */
 export function getTop10Products(): Product[] {
   return [...mockProducts]
-    .sort((a, b) => b.aiScore - a.aiScore)
+    .sort((a, b) => b.ai_score - a.ai_score)
     .slice(0, 10);
 }
 
@@ -131,18 +131,18 @@ export function searchProducts(
 
   if (amount) {
     filtered = filtered.filter((p) => {
-      if (p.maxAmount && p.maxAmount >= amount) return true;
-      if (!p.maxAmount) return true;
+      if (p.max_amount && p.max_amount >= amount) return true;
+      if (!p.max_amount) return true;
       return false;
     });
   }
 
   const avgScore = Math.round(
-    filtered.reduce((acc, p) => acc + p.aiScore, 0) / (filtered.length || 1)
+    filtered.reduce((acc, p) => acc + p.ai_score, 0) / (filtered.length || 1)
   );
 
   return {
-    results: filtered.sort((a, b) => b.aiScore - a.aiScore),
+    results: filtered.sort((a, b) => b.ai_score - a.ai_score),
     aiSummary: {
       score: avgScore,
       explanation: [
