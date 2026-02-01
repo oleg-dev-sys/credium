@@ -40,7 +40,7 @@ export function Top10List({ products, isLoading, onProductClick }: Top10ListProp
               <img
                 src={product.logo_url}
                 alt={product.bank || 'Банк'}
-                className="w-10 h-10 rounded-md object-contain border border-border"
+                className="w-10 h-10 rounded-md object-contain border border-border bg-white"
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.style.display = 'none';
