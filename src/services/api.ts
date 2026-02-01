@@ -117,7 +117,7 @@ export const api = {
   },
 
   async loginWithTelegram(initData: string): Promise<AuthResponse> {
-    return request<AuthResponse>('/auth//telegram-webapp', {
+    return request<AuthResponse>('/auth/telegram-webapp', {
       method: 'POST',
        body: JSON.stringify({ initData }),
       cache: 'no-store'
