@@ -38,10 +38,7 @@ export function useTelegramAuth() {
         api
           .loginWithTelegram(initData)
           .then(async (userData) => {
-            const token = localStorage.getItem('access_token')
-            if (token) {
-              await setToken(token)
-            }
+            await setToken(userData.access_token)
           })
           .catch((err) => console.error('Telegram Auth failed:', err))
       }
