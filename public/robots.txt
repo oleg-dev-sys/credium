@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /terms
+Disallow: /privacy
+Disallow: /profile
+Disallow: /onboarding
+Disallow: /ai-results
+Disallow: /personal-offers
+
+Sitemap: https://credium.store/sitemap.xml
+Host: https://credium.store

@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Credium Design Tokens */
+    --color-tech-blue: 222 100% 61%;
+    --color-deep-navy: 216 73% 11%;
+    --color-electric-mint: 164 87% 55%;
+    --color-soft-gray: 213 20% 93%;
+    --color-graphite: 220 20% 14%;
+    --color-card-dark: 218 45% 13%;
+    
+    /* Core tokens - Dark Theme by Default */
+    --background: 216 73% 11%;
+    --foreground: 0 0% 98%;
+    
+    --card: 218 45% 13%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 218 45% 15%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 222 100% 61%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 220 30% 18%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --muted: 220 25% 16%;
+    --muted-foreground: 215 20% 60%;
+    
+    --accent: 164 87% 55%;
+    --accent-foreground: 216 73% 11%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 25% 20%;
+    --input: 220 30% 18%;
+    --ring: 222 100% 61%;
+    
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    
+    /* Shadows */
+    --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 40px hsl(222 100% 61% / 0.25);
+    
+    /* Spacing Variables (для использования через var(...), но не для переопределения классов) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    
+    /* Sidebar */
+    --sidebar-background: 216 73% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 222 100% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 30% 18%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 220 25% 18%;
+    --sidebar-ring: 222 100% 61%;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 216 73% 11%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 216 73% 11%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 73% 11%;
+    
+    --primary: 222 100% 61%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 213 20% 93%;
+    --secondary-foreground: 216 73% 11%;
+    
+    --muted: 213 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    
+    --accent: 164 87% 55%;
+    --accent-foreground: 216 73% 11%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 213 20% 91%;
+    --input: 213 20% 91%;
+    --ring: 222 100% 61%;
+    
+    --shadow-soft: 0 6px 18px rgba(11, 20, 40, 0.06);
+    --shadow-card: 0 4px 24px rgba(11, 20, 40, 0.08);
+    --shadow-glow: 0 0 40px hsl(222 100% 61% / 0.2);
+    
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 222 100% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 20% 96%;
+    --sidebar-accent-foreground: 216 73% 11%;
+    --sidebar-border: 213 20% 91%;
+    --sidebar-ring: 222 100% 61%;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 9999px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsla(var(--muted-foreground) / 0.3);
+    border-radius: 9999px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsla(var(--muted-foreground) / 0.5);
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/80 backdrop-blur-xl border border-border/50;
+  }
+  
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary to-accent;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-card;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+    }
+    to {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.4);
+    }
+  }
+  
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-soft {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.02);
+      opacity: 0.9;
+    }
+  }
+}
