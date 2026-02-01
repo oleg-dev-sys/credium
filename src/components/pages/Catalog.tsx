@@ -39,8 +39,6 @@ export default function Catalog({ initialProducts }: { initialProducts: Product[
   const [selectedType, setSelectedType] = useState<ProductType | null>(typeParam);
   const [amountRange, setAmountRange] = useState<[number, number]>([0, 5000000]);
   const [aprRange, setAprRange] = useState<[number, number]>([0, 100]);
-  const [products, setProducts] = useState(initialProducts);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setSelectedType(typeParam);
@@ -59,14 +57,14 @@ export default function Catalog({ initialProducts }: { initialProducts: Product[
   };
 
   const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+    return initialProducts.filter((product) => {
       if (selectedType && product.type !== selectedType) return false;
       if (product.max_amount && product.max_amount < amountRange[0]) return false;
       if (product.min_amount && product.min_amount > amountRange[1]) return false;
       if (product.apr < aprRange[0] || product.apr > aprRange[1]) return false;
       return true;
     });
-  }, [products, selectedType, amountRange, aprRange]);
+  }, [selectedType, amountRange, aprRange]);
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -79,7 +77,7 @@ export default function Catalog({ initialProducts }: { initialProducts: Product[
         "@type": "Product",
         "name": product.title,
         "description": product.features?.join(', ') || product.badge || '',
-        "brand": { "@type": "Brand", "name": product.bank || 'Bank' }, // Поправил bankName -> bank (проверьте свой тип)
+        "brand": { "@type": "Brand", "name": product.bank || 'Bank' },
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -152,14 +150,6 @@ export default function Catalog({ initialProducts }: { initialProducts: Product[
       </div> */}
     </div>
   );
-
-  if (loading) {
-    return (
-      <AppShell>
-        <div className="container py-8 text-center">Загрузка предложений...</div>
-      </AppShell>
-    );
-  }
   
 
   const getTitle = () => {
