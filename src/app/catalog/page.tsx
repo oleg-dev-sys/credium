@@ -57,11 +57,7 @@ export default async function CatalogPage() {
     const initialProducts = await api.getProducts();
     console.log('=== CatalogPage: products loaded ===', initialProducts.length);
     
-    return (
-      <Suspense fallback={<div className="container py-8">Загрузка каталога...</div>}>
-        <CatalogClient initialProducts={initialProducts}/>
-      </Suspense>
-    );
+    return <CatalogClient initialProducts={initialProducts}/>;
   } catch (error) {
     console.error('=== CatalogPage: error loading products ===', error);
     return <div className="container py-8">Ошибка загрузки каталога</div>;
