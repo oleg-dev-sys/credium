@@ -116,10 +116,10 @@ export const api = {
     });
   },
 
-  async loginWithTelegram(user: any): Promise<AuthResponse> {
-    return request<AuthResponse>('/auth/telegram-widget', {
+  async loginWithTelegram(initData: string): Promise<AuthResponse> {
+    return request<AuthResponse>('/auth//telegram-webapp', {
       method: 'POST',
-      body: JSON.stringify(user),
+       body: JSON.stringify({ initData }),
       cache: 'no-store'
     });
   },
