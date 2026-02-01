@@ -52,9 +52,8 @@ export function AuthModals({
       // Отправляем данные на бэкенд
       const userData = await api.loginWithTelegram(tgUser)
 
-      const token = localStorage.getItem('access_token')
-      if (token) {
-        await setToken(token) // ← это обновит user в контексте
+      if (userData && userData.access_token) {
+        await setToken(userData.access_token) 
       }
       
       // Редирект на предыдущую страницу
