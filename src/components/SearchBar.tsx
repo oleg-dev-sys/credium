@@ -31,7 +31,7 @@ export function SearchBar({ onSearch, isLoading, expanded = false }: SearchBarPr
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const params: SearchParams = { amount, period, creditScore, income };
+    const params: SearchParams = { amount, period, creditScore, income, expenses: creditScore, totalMonthlyPayments: 0  };
     if (type !== 'all') {
       params.type = type; // отправляем type ТОЛЬКО если выбран конкретный тип
     }

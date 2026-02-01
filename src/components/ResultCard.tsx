@@ -93,8 +93,8 @@ export function ResultCard({
         <div className="p-3 rounded-lg bg-muted/50">
           <p className="text-xs text-muted-foreground mb-1">Макс. сумма</p>
           <p className="font-semibold text-foreground">
-            {product.max_amount > 0 
-              ? formatCurrency(product.max_amount) 
+            {(product.max_amount ?? 0) > 0 
+              ? formatCurrency(product.max_amount ?? 0) 
               : 'По данным банка'}
           </p>
         </div>
