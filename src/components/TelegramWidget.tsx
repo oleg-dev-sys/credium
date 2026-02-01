@@ -53,7 +53,6 @@ export default function TelegramWidget({ onSuccess, botName }: TelegramWidgetPro
       ref={containerRef} 
       className="w-full h-full"
       style={{
-        opacity: 0,
         cursor: 'pointer',
         position: 'absolute',
         top: 0,
@@ -63,6 +62,7 @@ export default function TelegramWidget({ onSuccess, botName }: TelegramWidgetPro
         transform: 'scale(0.5)',
         transformOrigin: 'left center',
         pointerEvents: 'auto',
+        zIndex: 10,
       }}
     />
   );
