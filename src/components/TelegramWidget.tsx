@@ -17,10 +17,13 @@ export default function TelegramWidget({ onSuccess, botName }: TelegramWidgetPro
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log('TelegramWidget useEffect запущен');
+    console.log('botName:', botName);
     const scriptId = 'telegram-widget-script';
-    if (document.getElementById(scriptId)) return;
+    if (document.getElementById(scriptId)) {console.log('Скрипт уже загружен');return;}
 
     window.onTelegramAuth = (user) => {
+      console.log('Telegram auth success:', user);
       onSuccess(user);
     };
 
@@ -35,8 +38,19 @@ export default function TelegramWidget({ onSuccess, botName }: TelegramWidgetPro
     script.setAttribute('data-onauth', 'onTelegramAuth(user)');
     script.async = true;
 
+    script.onload = () => {
+      console.log('Скрипт телеграма загружен');
+    };
+
+    script.onerror = () => {
+      console.log('Ошибка загрузки скрипта телеграма');
+    };
+
     if (containerRef.current) {
+      console.log('Контейнер существует:', containerRef.current);
       containerRef.current.appendChild(script);
+    } else {
+      console.log('Контейнер НЕ существует!');
     }
 
     return () => {
