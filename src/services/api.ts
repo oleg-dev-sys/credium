@@ -59,7 +59,7 @@ export const api = {
   },
 
   async getTop10(): Promise<Product[]> {
-    return request<Product[]>('/api/products/top10', {
+    return request<Product[]>('/api/top10', {
       next: { revalidate: 3600 } // 1 час
     });
   },
@@ -71,7 +71,7 @@ export const api = {
   },
 
   async search(params: SearchParams): Promise<SearchResponse> {
-    return request<SearchResponse>('/api/products/search', {
+    return request<SearchResponse>('/api/search', {
       method: 'POST',
       body: JSON.stringify(params),
       // Поиск не кэшируем, так как параметры всегда разные
