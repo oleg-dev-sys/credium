@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatAPR } from '@/utils/formatCurrency';
 import type { Product } from '@/components/types';
-import Image from 'next/image';
 
 interface Top10ListProps {
   products: Product[];
@@ -39,12 +38,10 @@ export function Top10List({ products, isLoading, onProductClick }: Top10ListProp
           {/* Логотип */}
           {product.logo_url ? (
             <div className="relative w-10 h-10">
-              <Image
+              <img
                 src={product.logo_url}
                 alt={product.bank || 'Банк'}
-                fill
                 className="rounded-md object-contain border border-border"
-                sizes="40px"
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.style.display = 'none';

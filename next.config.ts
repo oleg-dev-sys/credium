@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'logo.s3lds.ru', // Домен для логотипов
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   async headers() {
