@@ -37,17 +37,15 @@ export function Top10List({ products, isLoading, onProductClick }: Top10ListProp
           <div className="flex-shrink-0 w-10 h-10 relative">
           {/* Логотип */}
           {product.logo_url ? (
-            <div className="relative w-10 h-10">
               <img
                 src={product.logo_url}
                 alt={product.bank || 'Банк'}
-                className="rounded-md object-contain border border-border"
+                className="w-10 h-10 rounded-md object-contain border border-border"
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.style.display = 'none';
                 }}
               />
-            </div>
           ) : (
             <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center text-xs text-muted-foreground">
               ?
