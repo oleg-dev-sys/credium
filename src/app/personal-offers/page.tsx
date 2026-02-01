@@ -9,7 +9,7 @@ export async function generateMetadata({
   searchParams: { [key: string]: string | undefined }
 }): Promise<Metadata> {
   const params = await searchParams;
-  const amount = searchParams.amount as string | undefined;
+  const amount = params.amount as string | undefined;
   
   return {
     title: amount 

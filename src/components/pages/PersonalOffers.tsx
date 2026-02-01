@@ -85,6 +85,11 @@ export default function PersonalOffersClient({ initialProducts }: PersonalOffers
   const [sortBy, setSortBy] = useState<SortOption>(initialSortBy);
 
   useEffect(() => {
+    setAllProducts(initialProducts);
+    setLoading(false);
+  }, [initialProducts]);
+
+  useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
 
     params.set('type', type);
@@ -100,7 +105,7 @@ export default function PersonalOffersClient({ initialProducts }: PersonalOffers
     params.set('sortBy', sortBy);
 
     router.replace(`/personal-offers?${params.toString()}`, { scroll: false });
-  }, [amountRange, aprRange, sortBy, onboardingParams, router, searchParams]);
+  }, [amountRange, aprRange, sortBy, onboardingParams, router]);
   
   const displayScore = useMemo(() => {
     if (user?.credit_score) return user.credit_score;

@@ -1,6 +1,7 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
-// Типизация для объекта window
 declare global {
   interface Window {
     onTelegramAuth: (user: any) => void;
@@ -10,23 +11,19 @@ declare global {
 interface TelegramWidgetProps {
   onSuccess: (user: any) => void;
   botName: string;
-  className?: string;
 }
 
-export default function TelegramWidget({ onSuccess, botName, className }: TelegramWidgetProps) {
+export default function TelegramWidget({ onSuccess, botName }: TelegramWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // 1. Проверяем, не вставлен ли уже скрипт (защита от дублей)
     const scriptId = 'telegram-widget-script';
     if (document.getElementById(scriptId)) return;
 
-    // 2. Определяем глобальную функцию
     window.onTelegramAuth = (user) => {
       onSuccess(user);
     };
 
-    // 3. Создаем скрипт
     const script = document.createElement('script');
     script.id = scriptId;
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
@@ -38,23 +35,35 @@ export default function TelegramWidget({ onSuccess, botName, className }: Telegr
     script.setAttribute('data-onauth', 'onTelegramAuth(user)');
     script.async = true;
 
-    // 4. Вставляем
     if (containerRef.current) {
       containerRef.current.appendChild(script);
     }
 
     return () => {
-        // Очистка при размонтировании не всегда нужна для скрипта, 
-        // но callback лучше убрать
-        // @ts-ignore
-        window.onTelegramAuth = undefined;
+      if (containerRef.current) {
+        containerRef.current.innerHTML = '';
+      }
+      // @ts-ignore
+      window.onTelegramAuth = undefined;
     };
   }, [botName, onSuccess]);
 
   return (
     <div 
       ref={containerRef} 
-      className={className} // Фиксируем высоту, чтобы не прыгало
+      className="w-full h-full"
+      style={{
+        opacity: 0,
+        cursor: 'pointer',
+        position: 'absolute',
+        top: 0,
+        left: '-30%',
+        width: '200%',
+        height: '100%',
+        transform: 'scale(0.5)',
+        transformOrigin: 'left center',
+        pointerEvents: 'auto',
+      }}
     />
   );
 }

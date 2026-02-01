@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import CatalogClient from '@/components/pages/Catalog';
+import { Suspense } from 'react';
 import api from '@/services/api';
 
 type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }> | { [key: string]: string | string[] | undefined }
 };
 
-// 🔑 Отключаем статическую генерацию
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
@@ -29,7 +29,9 @@ const seoDict: Record<string, { title: string; desc: string }> = {
   }
 };
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  // 🔑 Дожидаемся searchParams
+  const searchParams = await props.searchParams;
   const type = (searchParams.type as string) || 'default';
   
   const seo = seoDict[type] || seoDict.default;
@@ -56,7 +58,11 @@ export default async function CatalogPage() {
     const initialProducts = await api.getProducts();
     console.log('=== CatalogPage: products loaded ===', initialProducts.length);
     
-    return <CatalogClient initialProducts={initialProducts}/>;
+    return (
+      <Suspense fallback={<div className="container py-8">Загрузка каталога...</div>}>
+        <CatalogClient initialProducts={initialProducts}/>
+      </Suspense>
+    );
   } catch (error) {
     console.error('=== CatalogPage: error loading products ===', error);
     return <div className="container py-8">Ошибка загрузки каталога</div>;

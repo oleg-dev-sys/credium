@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { AppShell } from '@/components/AppShell';
@@ -23,23 +23,8 @@ export default function SearchResultsClient({ initialResults }: SearchResultsPro
   const searchMutation = useSearch();
 
   const [mascotState, setMascotState] = useState<CUnitState>('idle');
-  const [results, setResults] = useState<SearchResponse | null>(null);
-
-  useEffect(() => {
-    const amount = searchParams.get('amount');
-    const term = searchParams.get('term');
-    const type = searchParams.get('type');
-
-    if (amount && !results) {
-      const params: SearchParams = {
-        amount: Number(amount),
-        ...(term && { term: Number(term) }),
-        ...(type && { type: type as any })
-      } as SearchParams; ;
-      
-      handleSearch(params);
-    }
-  }, [searchParams]);
+  const [results, setResults] = useState<SearchResponse | null>(initialResults);
+  const isFirstRender = useRef(true);
 
   const handleSearch = async (params: SearchParams) => {
     setMascotState('scanning');

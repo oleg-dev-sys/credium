@@ -34,15 +34,26 @@ const productTypeIcons: Record<ProductType, React.ReactNode> = {
 export default function CatalogClient({ initialProducts }: { initialProducts: Product[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const typeParam = searchParams.get('type') as ProductType | null;
+  const typeParam = searchParams.get('type')
   
-  const [selectedType, setSelectedType] = useState<ProductType | null>(typeParam);
+  const [selectedType, setSelectedType] = useState<ProductType | null>(() => {
+    if (typeParam === 'all' || !typeParam) {
+      return null;
+    }
+    return typeParam as ProductType;
+  });
   const [amountRange, setAmountRange] = useState<[number, number]>([0, 5000000]);
   const [aprRange, setAprRange] = useState<[number, number]>([0, 100]);
 
   useEffect(() => {
-    setSelectedType(typeParam);
-  }, [typeParam]);
+    const newType = searchParams.get('type');
+    
+    if (newType === 'all' || !newType) {
+      setSelectedType(null);
+    } else {
+      setSelectedType(newType as ProductType);
+    }
+  }, [searchParams]);
 
   const handleTypeChange = (type: ProductType | null) => {
     setSelectedType(type);
@@ -57,14 +68,23 @@ export default function CatalogClient({ initialProducts }: { initialProducts: Pr
   };
 
   const filteredProducts = useMemo(() => {
-    return initialProducts.filter((product) => {
-      if (selectedType && product.type !== selectedType) return false;
-      if (product.max_amount && product.max_amount < amountRange[0]) return false;
-      if (product.min_amount && product.min_amount > amountRange[1]) return false;
-      if (product.apr < aprRange[0] || product.apr > aprRange[1]) return false;
+    console.log('=== Filtering products, selectedType ===', selectedType);
+    console.log('=== Initial products count ===', initialProducts.length);
+    
+    const result = initialProducts.filter((product) => {
+      if (selectedType && product.type !== selectedType) {
+        console.log(`Product ${product.id} filtered out: type mismatch`);
+        return false;
+      }
       return true;
     });
-  }, [selectedType, amountRange, aprRange]);
+    
+    // 🔑 Сортировка по AI Score (от большего к меньшему)
+    const sorted = result.sort((a, b) => (b.ai_score || 0) - (a.ai_score || 0));
+    
+    console.log('=== Filtered products count ===', sorted.length);
+    return sorted;
+  }, [initialProducts, selectedType]);
 
   const schemaData = {
     "@context": "https://schema.org",
