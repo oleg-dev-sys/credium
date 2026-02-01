@@ -65,7 +65,7 @@ export const api = {
   },
 
   async getProduct(id: string): Promise<Product> {
-    return request<Product>(`/api/products/${id}`, {
+    return request<Product>(`/api/product/${id}`, {
       next: { revalidate: 3600 } // 1 час
     });
   },
