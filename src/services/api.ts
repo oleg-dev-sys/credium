@@ -93,22 +93,24 @@ export const api = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: email,
+        email: email,
         password: password,
+        full_name: "", 
       }),
       cache: 'no-store'
     });
   },
 
-  async register(email: string, password: string): Promise<AuthResponse> {
+  async register(email: string, password: string, full_name: string = ""): Promise<AuthResponse> {
     return request<AuthResponse>('/auth/register', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: email,
+        email: email,
         password: password,
+        full_name: full_name,
       }),
       cache: 'no-store'
     });
