@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import CatalogClient from '@/components/pages/Catalog';
-import { Suspense } from 'react';
 import api from '@/services/api';
 
 type Props = {

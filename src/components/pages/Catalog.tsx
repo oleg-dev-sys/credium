@@ -31,7 +31,7 @@ const productTypeIcons: Record<ProductType, React.ReactNode> = {
   microloan: <Wallet className="h-4 w-4" />,
 };
 
-export default function Catalog({ initialProducts }: { initialProducts: Product[] }) {
+export default function CatalogClient({ initialProducts }: { initialProducts: Product[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const typeParam = searchParams.get('type') as ProductType | null;
