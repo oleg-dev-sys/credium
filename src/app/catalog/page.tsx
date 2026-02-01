@@ -7,6 +7,9 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 };
 
+// 🔑 Отключаем статическую генерацию
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 const seoDict: Record<string, { title: string; desc: string }> = {
   card: {
@@ -48,11 +51,19 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 }
 
 export default async function CatalogPage() {
+  console.log('=== CatalogPage: loading products ===');
+  
+  try {
     const initialProducts = await api.getProducts();
+    console.log('=== CatalogPage: products loaded ===', initialProducts.length);
     
     return (
-    <Suspense fallback={<div className="container py-8">Загрузка каталога...</div>}>
+      <Suspense fallback={<div className="container py-8">Загрузка каталога...</div>}>
         <CatalogClient initialProducts={initialProducts}/>
-    </Suspense>
+      </Suspense>
     );
+  } catch (error) {
+    console.error('=== CatalogPage: error loading products ===', error);
+    return <div className="container py-8">Ошибка загрузки каталога</div>;
+  }
 }
