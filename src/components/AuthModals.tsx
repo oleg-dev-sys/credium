@@ -49,8 +49,20 @@ export function AuthModals({
   const handleTelegramSuccess = async (tgUser: any) => {
     setIsLoading(true)
     try {
+      const params = new URLSearchParams();
+    
+      if (tgUser.id) params.append('id', String(tgUser.id));
+      if (tgUser.first_name) params.append('first_name', tgUser.first_name);
+      if (tgUser.last_name) params.append('last_name', tgUser.last_name);
+      if (tgUser.username) params.append('username', tgUser.username);
+      if (tgUser.photo_url) params.append('photo_url', tgUser.photo_url);
+      if (tgUser.auth_date) params.append('auth_date', String(tgUser.auth_date));
+      if (tgUser.hash) params.append('hash', tgUser.hash);
+
+      const initDataString = params.toString();
+
       // Отправляем данные на бэкенд
-      const userData = await api.loginWithTelegram(tgUser)
+      const userData = await api.loginWithTelegram(initDataString)
 
       if (userData && userData.access_token) {
         await setToken(userData.access_token) 

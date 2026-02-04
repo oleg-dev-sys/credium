@@ -10,6 +10,7 @@ interface TelegramLoginButtonProps {
   isLoading?: boolean;
 }
 
+
 export function TelegramLoginButton({ botName, onSuccess, isLoading }: TelegramLoginButtonProps) {
   return (
     <div className="relative w-full">
