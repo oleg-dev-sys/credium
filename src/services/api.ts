@@ -29,6 +29,16 @@ export interface NotificationSettings {
   marketing: boolean;
 }
 
+export interface TelegramWidgetData {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  photo_url?: string;
+  auth_date: number;
+  hash: string;
+}
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.credium.store';
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
@@ -112,6 +122,14 @@ export const api = {
         password: password,
         full_name: full_name,
       }),
+      cache: 'no-store'
+    });
+  },
+
+  async loginWithTelegramWidget(user: TelegramWidgetData): Promise<AuthResponse> {
+    return request<AuthResponse>('/auth/telegram-widget', {
+      method: 'POST',
+      body: JSON.stringify(user),
       cache: 'no-store'
     });
   },
