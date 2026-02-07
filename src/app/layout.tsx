@@ -151,7 +151,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* Явное указание фавиконки с версией */}
-        <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon" />
+        <link rel="icon" href="https://www.credium.store/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
         
