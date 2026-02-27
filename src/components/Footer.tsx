@@ -16,7 +16,7 @@ export function Footer() {
     company: [
       { href: '/about', label: 'О нас' },
       { href: '/', label: 'Контакты' },
-      // { href: '/', label: 'Блог' },
+      { href: '/blog', label: 'Блог' },
     ],
     legal: [
       { href: '/terms', label: 'Условия использования' },

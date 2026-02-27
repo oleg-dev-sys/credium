@@ -27,6 +27,7 @@ export function Header() {
     { href: '/', label: 'Главная' },
     { href: '/search', label: 'Поиск' },
     { href: '/catalog?type=all', label: 'Каталог' },
+    { href: '/blog', label: 'Блог' },
     { href: '/profile', label: 'Профиль' },
   ]
 
@@ -166,7 +167,7 @@ export function Header() {
             aria-label="Мобильное меню"
           >
             <div className="container py-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
+              {filteredNavigation.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

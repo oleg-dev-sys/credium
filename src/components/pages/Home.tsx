@@ -161,21 +161,20 @@ export default function Home({ initialTop10Data }: HomeProps) {
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
                 Умный подбор кредитов{' '}
-                <span className="gradient-text">займов и карт онлайн</span> за
-                секунды
+                <span className="gradient-text">займов и карт онлайн</span> быстро, 
+                прозрачно, удобно
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                C-Unit проанализирует сотни предложений банков и МФО, чтобы найти самый низкий процент и высокую вероятность одобрения без справок.
+                C-Unit помогает найти и оформить лучшие предложения по кредитам, займам и кредитным картам без лишней бюрократии. Сравните актуальные варианты банков и микрофинансовых организаций, рассчитайте платёж в кредитном калькуляторе и отправьте онлайн‑заявку — решение часто приходит за минуты.
               </p>
-
               <div className="flex flex-wrap gap-4">
                 <Button
                   size="lg"
                   className="gap-2 text-base"
                   onClick={() => router.push('/onboarding')}
                 >
-                  Начать подбор
+                  Подобрать лучшее предложение
                   <ArrowRight className="w-5 h-5" />
                 </Button>
                 {!isTelegram ? <>  
